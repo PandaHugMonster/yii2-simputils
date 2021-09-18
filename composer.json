@@ -1,0 +1,30 @@
+{
+  "name": "spaf/yii2-simputils",
+  "version": "0.1.0",
+  "description": "Yii2 extension wrap for php-simputils, some useful wraps that improve usage",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ivan Ponomarev",
+      "email": "pi@spaf.dev"
+    }
+  ],
+  "type": "yii2-extension",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.0",
+    "spaf/simputils": "*",
+    "yiisoft/yii2": "~2.0.43"
+  },
+  "autoload": {
+    "psr-4": {
+      "spaf\\yii\\simputils\\": "src/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
+}
