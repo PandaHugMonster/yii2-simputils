@@ -7,8 +7,12 @@ This version is initial wrapper-library for usage with Yii2 framework.
 Basically it implements just an improvement of [VarDumper](https://www.yiiframework.com/doc/api/2.0/yii-helpers-vardumper) 
 capabilities for "[pd()](https://github.com/PandaHugMonster/php-simputils/blob/a7f4f7cc71e23f95d124b7a768a4775995d9263d/src/spaf/simputils/basic.php#L25)" procedure. All other functionality will be added later.
 
-P.S. This version I have developed just for myself. Because my php-simputils is not ready as well. 
-But you are welcome to suggest things/functionality for both. Documentation will be improved as well.
+### Recent changelog (0.1.1)
+
+ *  Added `can()` method shortcut to check yii2 permissions
+ *  Added additional functionality (controlling fields) to `spaf\yii\simputils\bootstrap\SimputilsBootstrap` and 
+    `spaf\yii\simputils\helpers\PleaseDieVarDumper`
+
 
 ## Basic Usage
 Install it through composer:
