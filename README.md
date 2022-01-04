@@ -1,18 +1,16 @@
 # yii2-simputils
-Yii2 extension wrap for php-simputils, some useful wraps that improve usage
+Yii2 extension wrap for [SimpUtils](https://github.com/PandaHugMonster/php-simputils).
+Integrates natively SimpUtils stuff with Yii2 framework.
 
-## Current condition
-This version is initial wrapper-library for usage with Yii2 framework.
+**Important:** In case if you want to use this integration - make sure you use classes from
+this package, rather than from the initial SimpUtils classes. They suppose to have exactly
+the same short-class-name as in SimpUtils (minus a few exceptions like `ExtendedObject` 
+that represents mix of Yii2 and SimpUtils).
+The same time, if there is no class/function declared in this extension package, 
+use directly implementation of the SimpUtils.
 
-Basically it implements just an improvement of [VarDumper](https://www.yiiframework.com/doc/api/2.0/yii-helpers-vardumper) 
-capabilities for "[pd()](https://github.com/PandaHugMonster/php-simputils/blob/a7f4f7cc71e23f95d124b7a768a4775995d9263d/src/spaf/simputils/basic.php#L25)" procedure. All other functionality will be added later.
-
-### Recent changelog (0.1.1)
-
- *  Added `can()` method shortcut to check yii2 permissions
- *  Added additional functionality (controlling fields) to `spaf\yii\simputils\bootstrap\SimputilsBootstrap` and 
-    `spaf\yii\simputils\helpers\PleaseDieVarDumper`
-
+_Short rule: If class/model/function with the same name exists in `yii2-simputils` use
+it, otherwise use that class/model/function provided by `php-simputils`_
 
 ## Basic Usage
 Install it through composer:
@@ -20,54 +18,60 @@ Install it through composer:
 composer require spaf/yii2-simputils "*"
 ```
 
-Add this to your yii2 config file for `console.php`:
-```php
-<?php
-$config = [
-//  ...
-    'bootstrap' => [
-	    [
-	    	'class' => 'spaf\yii\simputils\bootstrap\SimputilsBootstrap',
-		    'isConsole' => true,
-	    ]
-    ],
-//  ...
-];
-```
+You need to make sure, you put `PHP::init(new InitConfig())` into the index-file
+at `/web/index.php` (or any other entry-script) between the constants definition and the
+Yii App object creation. This way you can be sure that all the low-level routines are
+initialized before Yii2 app configuration.
 
-And add this one for `web.php`:
-```php
-<?php
-$config = [
-//  ...
-    'bootstrap' => [
-	    [
-	    	'class' => 'spaf\yii\simputils\bootstrap\SimputilsBootstrap',
-	    ]
-    ],
-//  ...
-];
-```
+**Important:** Yes, the SimpUtils and this extension represent low-level micro-framework,
+that does it's **bootstrapping/initialization earlier** than anything Yii2 is done (including
+Yii2 bootstrapping process). _Overall this will not compromise performance of requests!_
 
-And **that's it!** Now you can use the wrapped functionality (currently only `pd()` procedure).
-
-In your code you can use now:
+So the `/web/index.php` could look like that:
 
 ```php
 <?php
 
-use function spaf\simputils\basic\pd;
+// comment out the following two lines when deployed to production
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
 
-$myVar = [
-    'key1' => 'value1',
-    'key2' => [
-        'subkey1' => 'subvalue1',
-        'subkey2' => 12
-    ],
-];
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 
-pd($myVar);
 
+// This would be the best place to insert the PHP::init()
+use spaf\simputils\PHP;
+use spaf\yii\simputils\components\InitConfig;
+PHP::init(new InitConfig());
+////
+
+
+$config = require __DIR__ . '/../config/web.php';
+
+(new yii\web\Application($config))->run();
 ```
 
-**Important:** You need to use normal `pd()` procedure, this library does not redefine it, but adjust it's behaviour.
+
+or as a one-liner:
+```php
+<?php
+
+// comment out the following two lines when deployed to production
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
+
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
+
+
+// One-liner
+spaf\simputils\PHP::init(new spaf\yii\simputils\components\InitConfig());
+////
+
+
+$config = require __DIR__ . '/../config/web.php';
+
+(new yii\web\Application($config))->run();
+
+```
