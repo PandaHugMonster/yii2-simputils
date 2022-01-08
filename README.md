@@ -98,3 +98,12 @@ $config = require __DIR__ . '/../config/web.php';
    project into docker containers - you should be fine in any possible tradeoffs :).
  * Prepare examples of usage `SimpUtils Yii2`
  * Wrap Version information?
+ * When relying on the `SimpUtils Yii2` the preference of usage functionality 
+   should be consistent and as follows: **SimpUtils Yii2** > **Yii2** > **SimpUtils**
+ * Why do we need so much of "empty" files? - Because of transparent and non-invasive implementation
+   of the SimpUtils Yii2 we have to "patch" every single "BaseObject" inherited Yii2 file.
+   That is because there is no way to "slip in between class inheritance" of the "Yii2" framework
+   without forking and keeping it up to date. Which is a set of even bigger problems in the end.
+   In current implementation, all be functioning almost exactly the same without and drawbacks.
+   Only in case of `instance of` command you have to be careful and choose common ancestor instead 
+   of "patched leaf" of this library. Everything else suppose to be fully transparent!
