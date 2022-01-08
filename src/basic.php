@@ -1,6 +1,6 @@
 <?php
 
-namespace spaf\yii\simputils;
+namespace spaf\simputils\yii;
 
 use Yii;
 

@@ -1,12 +1,12 @@
 <?php /** @noinspection ALL */
 
 
-namespace spaf\yii\simputils\bootstrap;
+namespace spaf\simputils\yii\bootstrap;
 
 
 use Closure;
 use spaf\simputils\Settings;
-use spaf\yii\simputils\helpers\PleaseDieVarDumper;
+use spaf\simputils\yii\components\SimpUtilsYii2DebugVarDumper;
 use yii\base\BootstrapInterface;
 
 /**
@@ -37,11 +37,11 @@ class SimputilsBootstrap implements BootstrapInterface {
 	public function bootstrap($app) {
 		$highlight = is_null($this->pdHighlight)?!$this->isConsole:$this->pdHighlight;
 
-		PleaseDieVarDumper::$depth = $this->pdDepth;
-		PleaseDieVarDumper::$highlight = $highlight;
-		PleaseDieVarDumper::$isPreventedOutputOnProd = $this->pdIsPreventedOutputOnProd;
-		PleaseDieVarDumper::$isDisabled = $this->pdIsDisabled;
+		SimpUtilsYii2DebugVarDumper::$depth = $this->pdDepth;
+		SimpUtilsYii2DebugVarDumper::$highlight = $highlight;
+		SimpUtilsYii2DebugVarDumper::$isPreventedOutputOnProd = $this->pdIsPreventedOutputOnProd;
+		SimpUtilsYii2DebugVarDumper::$isDisabled = $this->pdIsDisabled;
 
-		Settings::redefine_pd(Closure::fromCallable([PleaseDieVarDumper::class, 'pd']));
+		Settings::redefine_pd(Closure::fromCallable([SimpUtilsYii2DebugVarDumper::class, 'pd']));
 	}
 }

@@ -75,3 +75,26 @@ $config = require __DIR__ . '/../config/web.php';
 (new yii\web\Application($config))->run();
 
 ```
+
+
+
+# Some dev notes
+
+ * `basePath` is fulfilled from `PHP::getInitConfig()->working_dir` if it's not set in the config.
+   Code is in `ApplicationExtensionTrait`
+ * The design of namespaces was done in a such way, that you can simply prefix Yii2 namespaces like
+   `yii\base\Model` with `spaf\simputils\` - and get final extended functionality without 
+   much of effort. Result should look like this: `spaf\simputils\yii\base\Model`.
+ * Super awesome results of efficiency tests of properties usage (rough, subjective, but still)
+   SimpUtils applied on top of Yii2 `Model` class, and created 10000 objects of it, with usage
+   of mixed standard fields + "getter/setter" fields Averaged of 10 cycles (in total 100 000 cycles)
+   > `Executed within: 0.243214 [Yii2 model with SimpUtils]`
+   > 
+   > `Executed within: 0.249595 [Yii2 model without SimpUtils]`
+   
+   Even though the numbers are ridiculously small anyway, and SimpUtils applied code seems to be
+   even faster, you can consider almost 1:1 efficiency (+/- considered). But as mentioned earlier,
+   The numbers are too small to even consider any problems, especially if you are ok to warp your
+   project into docker containers - you should be fine in any possible tradeoffs :).
+ * Prepare examples of usage `SimpUtils Yii2`
+ * Wrap Version information?

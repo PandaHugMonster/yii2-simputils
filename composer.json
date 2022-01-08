@@ -1,7 +1,7 @@
 {
   "name": "spaf/yii2-simputils",
-  "version": "0.1.1",
-  "description": "Yii2 extension wrap for php-simputils, some useful wraps that improve usage",
+  "version": "0.2.0",
+  "description": "Yii2 extension wrap for SimpUtils, some useful wraps that improve usage",
   "license": "MIT",
   "authors": [
     {
@@ -14,17 +14,25 @@
   "require": {
     "php": ">=8.0",
     "spaf/simputils": "~0.3 || ~1",
-    "yiisoft/yii2": "~2.0.43"
+    "yiisoft/yii2": "~2.0.42"
   },
   "autoload": {
     "psr-4": {
-      "spaf\\yii\\simputils\\": "src/"
+      "spaf\\simputils\\yii\\": "src/"
     },
     "files": [
       "src/basic.php"
     ]
   },
   "repositories": [
+    {
+      "package": [{
+        "name": "spaf/simputils"
+      }
+      ],
+      "type": "path",
+      "url": "/home/ivan/development/php-simputils"
+    },
     {
       "type": "composer",
       "url": "https://asset-packagist.org"
