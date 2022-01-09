@@ -52,7 +52,8 @@ class SimpUtilsYii2DebugVarDumper {
 	public static function pd(...$data) {
 		if (!static::$isDisabled) {
 			static::pr(...$data);
-			\Yii::$app->end();
+			\Yii::$app?->end();
+			die;
 		}
 	}
 
