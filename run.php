@@ -6,6 +6,7 @@ use spaf\simputils\attributes\Extract;
 use spaf\simputils\attributes\Property;
 use spaf\simputils\PHP;
 use spaf\simputils\yii\base\BaseObject;
+use spaf\simputils\yii\base\Model;
 use spaf\simputils\yii\components\InitConfig;
 use function spaf\simputils\basic\pd;
 
@@ -58,4 +59,7 @@ $obj = new MyClass();
 //pd(isset($obj->something));
 $obj->something = '333';
 $obj->dt = '1234-05-05 01:02:03';
-pd($obj);
+
+$model = new Model();
+
+pd($obj, $model->toArray());
