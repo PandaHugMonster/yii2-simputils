@@ -13,7 +13,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.0",
-    "spaf/simputils": "dev-main",
+    "spaf/simputils": "~1",
     "yiisoft/yii2": "~2"
   },
   "autoload": {
