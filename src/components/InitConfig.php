@@ -31,7 +31,7 @@ class InitConfig extends \spaf\simputils\models\InitConfig {
 	}
 
 	static function yiiDefinitions() {
-		return require FS::data(['internal-configs', 'definitions.php'], 'yii2-simputils');
+		return require realpath(__DIR__.'/../internal-configs/definitions.php');
 	}
 
 }
