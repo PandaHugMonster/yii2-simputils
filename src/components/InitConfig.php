@@ -6,6 +6,7 @@ namespace spaf\simputils\yii\components;
 
 
 use Closure;
+use spaf\simputils\FS;
 use function realpath;
 
 class InitConfig extends \spaf\simputils\models\InitConfig {
@@ -27,6 +28,10 @@ class InitConfig extends \spaf\simputils\models\InitConfig {
 		];
 
 		parent::__construct($args);
+	}
+
+	static function yiiDefinitions() {
+		return require FS::data(['internal-configs', 'definitions.php'], 'yii2-simputils');
 	}
 
 }
