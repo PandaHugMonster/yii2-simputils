@@ -255,7 +255,7 @@
 	'yii\web\UploadedFile' => 'spaf\simputils\yii\web\UploadedFile',
 	'yii\web\UrlManager' => 'spaf\simputils\yii\web\UrlManager',
 	'yii\web\UrlNormalizer' => 'spaf\simputils\yii\web\UrlNormalizer',
-	'yii\web\UrlRule' => 'spaf\simputils\yii\web\UrlRule',
+//	'yii\web\UrlRule' => 'spaf\simputils\yii\web\UrlRule',
 	'yii\web\User' => 'spaf\simputils\yii\web\User',
 	'yii\web\UserEvent' => 'spaf\simputils\yii\web\UserEvent',
 	'yii\web\View' => 'spaf\simputils\yii\web\View',
