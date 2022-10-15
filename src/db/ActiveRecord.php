@@ -65,6 +65,16 @@ class ActiveRecord extends \yii\db\ActiveRecord {
 		return [];
 	}
 
+	private $_relationsDependencies = [];
+	private $_related = [];
+
+	private function resetDependentRelations($attribute) {
+		foreach ($this->_relationsDependencies[$attribute] as $relation) {
+			unset($this->_related[$relation]);
+		}
+		unset($this->_relationsDependencies[$attribute]);
+	}
+
 	public function __set($name, $value) {
 		$normalizer = static::attributesPreNorming()[$name] ?? null;
 		$prop_relations_dependencies = new ReflectionProperty(
