@@ -48,16 +48,6 @@ abstract class BaseActiveRecord extends \yii\db\BaseActiveRecord {
 		$prop_attributes->setAccessible(false);
 	}
 
-	private $_relationsDependencies = [];
-	private $_related = [];
-
-	private function resetDependentRelations($attribute) {
-		foreach ($this->_relationsDependencies[$attribute] as $relation) {
-			unset($this->_related[$relation]);
-		}
-		unset($this->_relationsDependencies[$attribute]);
-	}
-
 	public static function populateRecord($record, $row) {
 		parent::populateRecord($record, $row);
 		$columns = array_flip($record->attributes());

@@ -2,6 +2,7 @@
 
 namespace spaf\simputils\yii\db;
 
+use ReflectionMethod;
 use ReflectionProperty;
 use spaf\simputils\models\DateTime;
 use spaf\simputils\traits\SimpleObjectTrait;
@@ -65,16 +66,6 @@ class ActiveRecord extends \yii\db\ActiveRecord {
 		return [];
 	}
 
-	private $_relationsDependencies = [];
-	private $_related = [];
-
-	private function resetDependentRelations($attribute) {
-		foreach ($this->_relationsDependencies[$attribute] as $relation) {
-			unset($this->_related[$relation]);
-		}
-		unset($this->_relationsDependencies[$attribute]);
-	}
-
 	public function __set($name, $value) {
 		$normalizer = static::attributesPreNorming()[$name] ?? null;
 		$prop_relations_dependencies = new ReflectionProperty(
@@ -91,7 +82,18 @@ class ActiveRecord extends \yii\db\ActiveRecord {
 				!empty($prop_relations_dependencies->getValue($this)[$name])
 				&& (!array_key_exists($name, $prop_attributes->getValue($this)) || $prop_attributes->getValue($this)[$name] !== $value)
 			) {
+
+
+				$meth_resetDependentRelations = new ReflectionMethod(
+					'\yii\db\BaseActiveRecord', 'resetDependentRelations'
+				);
+				$meth_resetDependentRelations->setAccessible(true);
+
 				$this->resetDependentRelations($name);
+
+				$meth_resetDependentRelations->setAccessible(false);
+
+
 			}
 			$this->setAttribute($name, !is_null($value) && !is_null($normalizer)
 				?$normalizer::process($value)
