@@ -2,6 +2,7 @@
 
 namespace spaf\simputils\yii\db;
 
+use ReflectionMethod;
 use ReflectionProperty;
 use spaf\simputils\traits\SimpleObjectTrait;
 use function array_flip;
@@ -36,7 +37,19 @@ abstract class BaseActiveRecord extends \yii\db\BaseActiveRecord {
 				!empty($prop_relations_dependencies->getValue($this)[$name])
 				&& (!array_key_exists($name, $prop_attributes->getValue($this)) || $prop_attributes->getValue($this)[$name] !== $value)
 			) {
-				$this->resetDependentRelations($name);
+
+
+				$meth_resetDependentRelations = new ReflectionMethod(
+					'\yii\db\BaseActiveRecord', 'resetDependentRelations'
+				);
+				$meth_resetDependentRelations->setAccessible(true);
+
+				$meth_resetDependentRelations->invoke($this, $name);
+//				$this->resetDependentRelations($name);
+
+				$meth_resetDependentRelations->setAccessible(false);
+
+
 			}
 			$this->setAttribute($name, !is_null($value) && !is_null($normalizer)
 				?$normalizer::process($value)

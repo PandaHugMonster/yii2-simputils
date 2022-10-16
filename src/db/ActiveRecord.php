@@ -89,7 +89,8 @@ class ActiveRecord extends \yii\db\ActiveRecord {
 				);
 				$meth_resetDependentRelations->setAccessible(true);
 
-				$this->resetDependentRelations($name);
+				$meth_resetDependentRelations->invoke($this, $name);
+//				$this->resetDependentRelations($name);
 
 				$meth_resetDependentRelations->setAccessible(false);
 
